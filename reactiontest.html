@@ -1,0 +1,126 @@
+<!doctype html>
+<meta charset="utf-8">
+<html>
+<head>
+
+    <title>reaction tester</title>
+    <style type="text/css">
+        body{
+
+            padding:0;
+            margin:0
+        }
+
+        #shape{
+            color :gold;
+            width:250px;
+            height:200px;
+            background-color:palevioletred;
+            margin:1px auto;
+        }
+        #top{
+            background-color:grey;
+
+        }
+        #rlah{
+            margin:0 auto;
+            width:180px;
+            border:2px solid darkgray;
+            border-radius:5px;
+            padding:4px;
+            font-weight: bold;
+            font-size:25px
+        }
+        #topscores{
+            float:left;
+            color:#EDEDED;
+            font-size:25px;
+            font-weight:bold;
+        }
+    </style>
+</head>
+
+<body>
+<div id="topscores">
+    <p id="topscore"></p>
+</div>
+<div id="top">
+<div id ="rlah"> let's START THE GAME</div></div>
+<div id="shape"></div>
+
+<script type ="text/javascript">
+    function getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var colors = '#';
+        for (var i = 0; i < 6; i++) {
+            colors += letters[Math.floor(Math.random() * 16)];
+        }
+
+        return colors;
+    }
+    document.getElementById("rlah").onmouseover=function (ev) {
+        document.getElementById("rlah").style.backgroundColor="#EDEDED";
+    }
+    document.getElementById("rlah").onmouseleave=function (ev) {
+        document.getElementById("rlah").style.backgroundColor="gray";
+    }
+
+    function getRandomWidth(){
+
+        var x = Math.floor( Math.random()*250 +50);
+
+        return x;
+    }
+
+
+    function appear() {
+
+        document.getElementById("shape").style.display="block";
+        score=1;
+        start =new Date().getTime();
+
+    }
+
+
+
+var start=new Date().getTime();
+    var score=0;
+    var x =0;
+    document.getElementById("rlah").onclick=function (ev) {
+         start= new Date().getTime();
+        document.getElementById("shape").onclick = function () {
+
+            document.getElementById("shape").style.backgroundColor = getRandomColor();
+            document.getElementById("shape").style.width = getRandomWidth() + "px";
+            document.getElementById("shape").style.height = (getRandomWidth() - document.getElementById("rlah").style.height) + "px";
+            document.getElementById("shape").style.position = "absolute";
+            document.getElementById("shape").style.left = Math.floor(Math.random() * document.body.clientWidth) + "px";
+            document.getElementById("shape").style.top = Math.floor(Math.random() * 500 + 50) + "px";
+            document.getElementById("shape").style.display = "none";
+            var end = new Date().getTime();
+            var timetaken = ((end - start) / 1000).toFixed(4);
+
+            document.getElementById("rlah").innerHTML = "your clicking time is: " + timetaken + " s";
+            if(score==0){
+                document.getElementById("topscore").innerHTML="BestTime :" + timetaken+"s";
+                x=timetaken;
+            }else if(x <timetaken){
+                document.getElementById("topscore").innerHTML="BestTime :" + x+"s";
+            }else if(x>timetaken){
+               document.getElementById("topscore").innerHTML="BestTime :" + timetaken+"s";
+               x=timetaken;
+            }
+            score=1;
+
+            setTimeout(appear, Math.floor(Math.random()*2000));
+
+        }
+
+    }
+
+
+</script>
+
+
+</body>
+</html>
